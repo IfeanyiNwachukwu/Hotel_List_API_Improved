@@ -21,4 +21,9 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelListImproved.Core\HotelListImproved.Core.csproj" />
+    <ProjectReference Include="..\HotelListImproved.Infrastructure\HotelListImproved.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,10 @@
+using HotelListImproved.Configurations;
+using HotelListImproved.Infrastructure.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +29,19 @@ namespace HotelListImproved
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Fetching Connection string from APPSETTINGS.JSON  
+            //services.AddDbContext<BaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
+           
+            services.AddCors(o =>
+            {
+                o.AddPolicy("CorsPolicy-AllowAll",
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
+
+            services.AddAutoMapper(typeof(MapperInitializer));
+            
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
