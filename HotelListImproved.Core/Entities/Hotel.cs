@@ -22,6 +22,7 @@ namespace HotelListImproved.Core.Entities
         public double Rating { get; set; }
         [Required]
         public int CountryId { get; set; }
+        [NotMapped]
         [ForeignKey(nameof(Country))]
         public virtual Country Country { get; set; }
 
