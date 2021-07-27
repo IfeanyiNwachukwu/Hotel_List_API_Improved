@@ -9,7 +9,7 @@ namespace HotelListImproved.Infrastructure.DAL.HotelManagement
         {
 
         }
-        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Hotel> Hotel { get; set; }
 
         
     }

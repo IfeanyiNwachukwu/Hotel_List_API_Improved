@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelListImproved.Infrastructure.Migrations
 {
     [DbContext(typeof(HotelManagementContext))]
-    [Migration("20210727025435_MyMigration")]
-    partial class MyMigration
+    [Migration("20210727095730_SecondMigration")]
+    partial class SecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,27 @@ namespace HotelListImproved.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HotelListImproved.Core.Entities.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ShortName")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Country");
+                });
 
             modelBuilder.Entity("HotelListImproved.Core.Entities.Hotel", b =>
                 {
@@ -45,7 +66,25 @@ namespace HotelListImproved.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hotels");
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Hotel");
+                });
+
+            modelBuilder.Entity("HotelListImproved.Core.Entities.Hotel", b =>
+                {
+                    b.HasOne("HotelListImproved.Core.Entities.Country", "Country")
+                        .WithMany("Hotel")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("HotelListImproved.Core.Entities.Country", b =>
+                {
+                    b.Navigation("Hotel");
                 });
 #pragma warning restore 612, 618
         }

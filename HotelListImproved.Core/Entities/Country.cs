@@ -12,7 +12,7 @@ namespace HotelListImproved.Core.Entities
     {
         public Country()
         {
-            Hotels = new HashSet<Hotel>();
+            Hotel = new HashSet<Hotel>();
         }
         [Key]
         public int Id { get; set; }
@@ -21,8 +21,13 @@ namespace HotelListImproved.Core.Entities
         public string Name { get; set; }
         [MaxLength(4)]
         public string ShortName { get; set; }
-        [NotMapped]
-        public virtual ICollection<Hotel> Hotels { get; set; }
+       
+        public virtual ICollection<Hotel> Hotel { get; set; }
+
+
+        
+
+
 
         //public virtual IList<Hotel> Hotels { get; set; }
     }

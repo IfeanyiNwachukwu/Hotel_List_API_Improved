@@ -10,6 +10,10 @@ namespace HotelListImproved.Core.Entities
 {
     public class Hotel
     {
+        public Hotel()
+        {
+            
+        }
         [Key]
         public int Id { get; set; }
         [Required]
@@ -20,10 +24,9 @@ namespace HotelListImproved.Core.Entities
         public string Address { get; set; }
         [Range(1,5)]
         public double Rating { get; set; }
-        [Required]
+
         public int CountryId { get; set; }
-        [NotMapped]
-        [ForeignKey(nameof(Country))]
+        [ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
 
     }
