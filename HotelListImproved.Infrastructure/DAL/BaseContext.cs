@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace HotelListImproved.Infrastructure.DAL
 {
-    public interface IUnitOfWork<out TContext> : IDisposable where TContext: DbContext
+    public class BaseContext<TContext> : DbContext where TContext : DbContext
     {
-        int Complete();
-        Task<int> CompleteAsync();
-        TContext DBContext { get; }
 
+        public BaseContext(DbContextOptions options
+            ) : base(options)
+        {
+
+        }
 
     }
 }

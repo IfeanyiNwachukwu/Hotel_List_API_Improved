@@ -11,6 +11,7 @@ namespace HotelListImproved.Infrastructure.DAL.HotelManagement.Repo
 {
     public class HotelRepository : BaseRepository<Hotel>, IHotelRepository
     {
+       
         public HotelRepository(HotelManagementContext _dbContext) : base(_dbContext)
         {
 

@@ -1,21 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HotelListImproved.Core.Interface.HotelManagement;
+using HotelListImproved.Infrastructure.DAL.HotelManagement.Repo;
+using System;
 using System.Threading.Tasks;
 
 namespace HotelListImproved.Infrastructure.DAL.HotelManagement
 {
-    public class HotelManagementUOW : IUnitOfWork
+    public class HotelManagementUOW /*: BaseContext<HotelManagementContext>,  IUnitOfWork<HotelManagementContext>*/
     {
-        public int Complete()
+        private readonly HotelManagementContext _dbContext;
+
+        public IHotelRepository HotelManagement { get; set; }
+
+        //public HotelManagementUOW(HotelManagementContext dbContext)
+        //{
+        //    if (dbContext == null)
+        //    {
+        //        throw new ArgumentNullException("dbContext", "Null dbContext passed.");
+
+        //    }
+        //    _dbContext = dbContext;
+        //    HotelManagement = new HotelRepository(_dbContext);
+        //}
+
+     
+
+        //public HotelManagementUOW()
+        //{
+        //    _dbContext = new HotelManagementContext();
+        //    HotelManagement = new HotelRepository(_dbContext);
+
+
+        //}
+
+        public HotelManagementContext DBContext
         {
-            throw new NotImplementedException();
+            get { return _dbContext; }
         }
 
-        public void Dispose()
+
+        public int Complete()
         {
-            throw new NotImplementedException();
+            return _dbContext.SaveChanges();
         }
+
+        public async Task<int> CompleteAsync()
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public  void Dispose()
+        {
+            _dbContext.Dispose();
+        }
+
     }
 }

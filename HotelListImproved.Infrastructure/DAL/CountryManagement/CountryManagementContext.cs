@@ -3,14 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelListImproved.Infrastructure.DAL.CountryManagement
 {
-    public class CountryManagementContext : DbContext
+    public class CountryManagementContext : BaseContext<CountryManagementContext>
     {
+
         public CountryManagementContext(DbContextOptions<CountryManagementContext> options
-            ) : base(options)
+         ) : base(options)
         {
 
         }
-        public DbSet<Country> Countries { get; set; }
-       
+        public DbSet<Country> Country { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+
+        }
+
     }
 }
